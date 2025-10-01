@@ -5,7 +5,10 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import com.technical.practice.fakestore.data.database.category.Category
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 @Entity (
     tableName = "product",
     foreignKeys = [
@@ -19,11 +22,14 @@ import com.technical.practice.fakestore.data.database.category.Category
     ]
 )
 data class Product (
-    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id_product") val idProduct: Int = 1,
-    val title: String,
-    val price: Float,
-    val description: String,
-    @ColumnInfo(name = "category_id") val categoryID: Int,
-    val image: String,
-    @ColumnInfo(name = "is_favorite") val isFavorite: Boolean = false
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id_product")
+    @SerialName(value = "id")
+    val idProduct: Int = 1,
+    @SerialName(value = "title") val title: String,
+    @SerialName (value = "price") val price: Float,
+    @SerialName(value = "description") val description: String,
+    @ColumnInfo(name = "category_id") @SerialName(value = "category") val categoryID: Int,
+    @SerialName(value = "image") val image: String,
+    @Transient @ColumnInfo(name = "is_favorite") val isFavorite: Boolean = false
 )
