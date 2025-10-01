@@ -11,4 +11,10 @@ interface ProductDao {
 
     @Query ("SELECT * FROM product WHERE id_product = :productID")
     fun getProductById (productID: Int): Flow<Product>
+
+    @Query ("SELECT * FROM product WHERE is_favorite = 1")
+    fun getFavoriteProducts (): Flow<List<Product>>
+
+    @Query ("UPDATE product SET is_favorite = NOT is_favorite WHERE id_product = :productID")
+    suspend fun updateFavoriteStatus (productID: Int)
 }
