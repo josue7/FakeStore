@@ -34,7 +34,7 @@ fun ListProducts () {
 fun CardProduct (
     title: String,
     price: Double,
-    image: String, // URL de la imagen
+    image: String,
     isFavorite: Boolean,
     onFavoriteClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -43,39 +43,39 @@ fun CardProduct (
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp)
-            .clickable { /* Podrías manejar un click en toda la tarjeta aquí si es necesario */ },
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp) // Añade una ligera elevación
+            .clickable { /* TODO */ },
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Column {
             Image(
                 painter = painterResource(id = R.drawable.ic_launcher_foreground),
-                contentDescription = title, // Descripción para accesibilidad
+                contentDescription = title,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(180.dp), // Ajusta la altura según tus necesidades
-                contentScale = ContentScale.Crop // Escala la imagen para que llene el espacio
+                    .height(180.dp),
+                contentScale = ContentScale.Crop
             )
 
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp) // Padding interno para el texto y el botón
+                    .padding(16.dp)
             ) {
                 Text(
                     text = title,
-                    style = MaterialTheme.typography.titleMedium, // Un estilo de título adecuado
+                    style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(bottom = 4.dp)
                 )
                 Text(
-                    text = "$${String.format("%.2f", price)}", // Formatea el precio a 2 decimales
+                    text = "$${String.format("%.2f", price)}",
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
 
                 IconButton(
                     onClick = onFavoriteClick,
-                    modifier = Modifier.align(Alignment.End) // Alinea el botón a la derecha
+                    modifier = Modifier.align(Alignment.End)
                 ) {
                     Icon(
                         imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
