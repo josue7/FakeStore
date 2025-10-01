@@ -25,5 +25,5 @@ data class Product (
     val description: String,
     @ColumnInfo(name = "category_id") val categoryID: Int,
     val image: String,
-    val isFavorite: Boolean = false
+    @ColumnInfo(name = "is_favorite") val isFavorite: Boolean = false
 )
