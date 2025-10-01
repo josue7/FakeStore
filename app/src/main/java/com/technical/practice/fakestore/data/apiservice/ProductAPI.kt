@@ -5,9 +5,8 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-
 data class ProductAPI (
-    @SerialName(value = "id") val idProduct: Int,
+    @SerialName(value = "id") val id: Int,
     @SerialName(value = "title") val title: String,
     @SerialName (value = "price") val price: Double,
     @SerialName(value = "description") val description: String,
