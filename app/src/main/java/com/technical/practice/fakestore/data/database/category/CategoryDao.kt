@@ -6,12 +6,12 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
-@Dao
-interface CategoryDao {
-    @Query("SELECT * FROM category ORDER BY category ASC")
-    fun getAllCategories(): Flow< List<Category> >
-
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(category: Category)
-
-}
+//@Dao
+//interface CategoryDao {
+//    @Query("SELECT * FROM category ORDER BY category ASC")
+//    fun getCategories(): Flow< List<Category> >
+//
+//    @Insert(onConflict = OnConflictStrategy.IGNORE)
+//    suspend fun insert(category: Category)
+//
+//}
