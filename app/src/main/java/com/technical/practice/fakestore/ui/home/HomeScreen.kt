@@ -19,7 +19,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.technical.practice.fakestore.R
 import com.technical.practice.fakestore.ui.FakeStoreAppBar
+import com.technical.practice.fakestore.ui.category.CategoryDestination
 import com.technical.practice.fakestore.ui.navigation.NavigationDestination
+import com.technical.practice.fakestore.ui.product.ProductFavoriteDestination
 import com.technical.practice.fakestore.ui.tab.tabs
 import com.technical.practice.fakestore.ui.theme.FakeStoreTheme
 
@@ -58,9 +60,9 @@ fun HomeBody (
     val pageState = rememberPagerState( pageCount = { tabs.size } )
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     val resTitle = when (selectedTabIndex) {
-        0 -> DebtDestination.titleRes
-        1 -> PersonViewDestination.titleRes
-        else -> DebtDestination.titleRes
+        0 -> CategoryDestination.titleRes
+        1 -> ProductFavoriteDestination.titleRes
+        else -> CategoryDestination.titleRes
     }
 
     Column {

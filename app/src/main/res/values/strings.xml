@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">FakeStore</string>
 
+    <!-- Title Screen -->
+    <string name="title_screen_product">Productos</string>
+    <string name="title_screen_category">Categorías</string>
+    <string name="title_screen_favorite">Favoritos</string>
+
     <!-- Title tabs -->
     <string name="tab_title_product">Productos</string>
     <string name="tab_title_favorite">Favoritos</string>
