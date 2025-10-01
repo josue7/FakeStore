@@ -138,13 +138,13 @@ fun ProductDetailScreenPreview() {
         val sampleDetailProduct = Product(
             idProduct = 101,
             title = "Producto Increíble de Alta Calidad con Nombre Largo",
-            price = 199.99f,
+            price = 199.99,
             description = "Esta es una descripción detallada del producto increíble. " +
                     "Cuenta con materiales de primera calidad y un diseño innovador que " +
                     "seguramente te encantará. Perfecto para cualquier ocasión y " +
                     "diseñado para durar. No te pierdas la oportunidad de adquirir esta maravilla.",
             image = "https",
-            categoryID = 1,
+            category = "djsf",
             isFavorite = false
         )
         MaterialTheme {

@@ -19,33 +19,33 @@ fun ProductFavoriteScreen (
         Product(
             idProduct = 1,
             title = "Smartphone XYZ",
-            price = 299.99f,
+            price = 299.99,
             description = "Smartphone con cámara triple y pantalla AMOLED",
-            categoryID = 1,
+            category = "ypypyoy",
             image = "https://example.com/images/smartphone_xyz.png"
         ),
         Product(
             idProduct = 2,
             title = "Audífonos Bluetooth",
-            price = 59.99f,
+            price = 59.99,
             description = "Auriculares inalámbricos con cancelación de ruido",
-            categoryID = 2,
+            category = "tuututu",
             image = "https://example.com/images/auriculares_bt.png"
         ),
         Product(
             idProduct = 3,
             title = "Libro de Kotlin",
-            price = 24.99f,
+            price = 24.99,
             description = "Guía práctica para programar en Kotlin",
-            categoryID = 3,
+            category = "gfgfgh",
             image = "https://example.com/images/libro_kotlin.png"
         ),
         Product(
             idProduct = 4,
             title = "Cámara deportiva",
-            price = 149.99f,
+            price = 149.99,
             description = "Cámara resistente al agua con grabación 4K",
-            categoryID = 4,
+            category = "tryry",
             image = "https://example.com/images/camara_deportiva.png"
         )
     )

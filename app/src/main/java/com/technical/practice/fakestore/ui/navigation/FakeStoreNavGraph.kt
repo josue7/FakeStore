@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.technical.practice.fakestore.ui.home.HomeDestination
+import com.technical.practice.fakestore.ui.home.HomeScreen
 
 @Composable
 fun FakeStoreNavGraph (
@@ -18,7 +19,7 @@ fun FakeStoreNavGraph (
         modifier = modifier
     ) {
         composable ( route = HomeDestination.route ) {
-
+            HomeScreen()
         }
     }
 }

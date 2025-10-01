@@ -73,7 +73,7 @@ fun ListProducts (
 @Composable
 fun CardProduct (
     title: String,
-    price: Float,
+    price: Double,
     image: String,
     isFavorite: Boolean,
     onFavoriteClick: () -> Unit,
@@ -130,7 +130,7 @@ fun CardProduct (
 
 }
 
-fun formatPrice (mount: Float) = String.format(Locale.US, "%.2f", mount)
+fun formatPrice (mount: Double) = String.format(Locale.US, "%.2f", mount)
 
 //@Composable
 //@Preview
@@ -167,33 +167,33 @@ fun ProductView () {
         Product(
             idProduct = 1,
             title = "Smartphone XYZ",
-            price = 299.99f,
+            price = 299.99,
             description = "Smartphone con cámara triple y pantalla AMOLED",
-            categoryID = 1,
+            category = "ñoñololo",
             image = "https://example.com/images/smartphone_xyz.png"
         ),
         Product(
             idProduct = 2,
             title = "Audífonos Bluetooth",
-            price = 59.99f,
+            price = 59.99,
             description = "Auriculares inalámbricos con cancelación de ruido",
-            categoryID = 2,
+            category = "plñl",
             image = "https://example.com/images/auriculares_bt.png"
         ),
         Product(
             idProduct = 3,
             title = "Libro de Kotlin",
-            price = 24.99f,
+            price = 24.99,
             description = "Guía práctica para programar en Kotlin",
-            categoryID = 3,
+            category = "kfif",
             image = "https://example.com/images/libro_kotlin.png"
         ),
         Product(
             idProduct = 4,
             title = "Cámara deportiva",
-            price = 149.99f,
+            price = 149.99,
             description = "Cámara resistente al agua con grabación 4K",
-            categoryID = 4,
+            category = "343",
             image = "https://example.com/images/camara_deportiva.png"
         )
     )
