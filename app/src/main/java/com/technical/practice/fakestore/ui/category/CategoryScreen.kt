@@ -16,7 +16,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.technical.practice.fakestore.R
 import com.technical.practice.fakestore.data.database.category.Category
+import com.technical.practice.fakestore.ui.navigation.NavigationDestination
+
+object CategoryDestination: NavigationDestination {
+    override val route = "category"
+    override val titleRes = R.string.title_screen_category
+}
+
 
 @Composable
 fun ListCategories (categories: List<Category>, modifier: Modifier = Modifier) {
