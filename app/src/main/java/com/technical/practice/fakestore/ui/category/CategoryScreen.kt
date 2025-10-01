@@ -17,7 +17,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.technical.practice.fakestore.R
-import com.technical.practice.fakestore.data.database.category.Category
+//import com.technical.practice.fakestore.data.database.category.Category
+import com.technical.practice.fakestore.data.database.product.Product
 import com.technical.practice.fakestore.ui.navigation.NavigationDestination
 
 object CategoryDestination: NavigationDestination {
@@ -25,15 +26,30 @@ object CategoryDestination: NavigationDestination {
     override val titleRes = R.string.title_screen_category
 }
 
+@Composable
+fun CategoryScreen (
+    categories: List<String>,
+    navigateToView: (Int) -> Unit = {}
+) {
+    ListCategories(
+        categories = categories,
+        onTransactionClick = { navigateToView(it.toInt()) },
+        modifier = Modifier.fillMaxSize()
+    )
+}
 
 @Composable
-fun ListCategories (categories: List<Category>, modifier: Modifier = Modifier) {
+fun ListCategories (
+    categories: List<String>,
+    onTransactionClick: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         modifier = modifier
     ) {
         items(categories) {
-            CardCategory(it.category, modifier = Modifier.padding(4.dp))
+            CardCategory(it, modifier = Modifier.padding(4.dp))
         }
     }
 }
@@ -62,11 +78,7 @@ private fun CardCategory (category: String, modifier: Modifier = Modifier) {
 @Preview
 fun CategoryScreenPreview () {
     val categoriasEjemplo = listOf(
-        Category(idCategory = 1, category = "Tecnología"),
-        Category(idCategory = 2, category = "Deportes"),
-        Category(idCategory = 3, category = "Música"),
-        Category(idCategory = 4, category = "Cine"),
-        Category(idCategory = 5, category = "Literatura")
+        "Tecnología","Deportes", "Música","Cine", "Literatura"
     )
-    ListCategories(categoriasEjemplo)
+    ListCategories(categoriasEjemplo, onTransactionClick = {})
 }
