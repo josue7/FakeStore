@@ -3,4 +3,5 @@
 
     <!-- Other text -->
     <string name="text_price">$%1$s</string>
+    <string name="text_empty_list">No hay productos disponibles.</string>
 </resources>
