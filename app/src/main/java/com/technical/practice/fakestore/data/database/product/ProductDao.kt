@@ -1,6 +1,8 @@
 package com.technical.practice.fakestore.data.database.product
 
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
@@ -17,4 +19,7 @@ interface ProductDao {
 
     @Query ("UPDATE product SET is_favorite = NOT is_favorite WHERE id_product = :productID")
     suspend fun updateFavoriteStatus (productID: Int)
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insert (product: Product)
 }
