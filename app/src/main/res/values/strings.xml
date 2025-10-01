@@ -1,7 +1,12 @@
 <resources>
     <string name="app_name">FakeStore</string>
 
+    <!-- Title tabs -->
+    <string name="tab_title_product">Productos</string>
+    <string name="tab_title_favorite">Favoritos</string>
+
     <!-- Other text -->
     <string name="text_price">$%1$s</string>
     <string name="text_empty_list">No hay productos disponibles.</string>
+    <string name="button_text_back">Regresar</string>
 </resources>
