@@ -1,5 +1,6 @@
 package com.technical.practice.fakestore.ui.home
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -17,11 +18,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.technical.practice.fakestore.R
+//import com.technical.practice.fakestore.data.database.category.Category
+import com.technical.practice.fakestore.ui.AppViewModelProvider
 import com.technical.practice.fakestore.ui.FakeStoreAppBar
 import com.technical.practice.fakestore.ui.category.CategoryDestination
+import com.technical.practice.fakestore.ui.category.CategoryScreen
 import com.technical.practice.fakestore.ui.navigation.NavigationDestination
 import com.technical.practice.fakestore.ui.product.ProductFavoriteDestination
+import com.technical.practice.fakestore.ui.product.ProductFavoriteScreen
 import com.technical.practice.fakestore.ui.tab.tabs
 import com.technical.practice.fakestore.ui.theme.FakeStoreTheme
 
@@ -31,8 +37,16 @@ object HomeDestination : NavigationDestination {
 }
 
 @Composable
-fun HomeScreen () {
+fun HomeScreen (
+    viewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.Factory)
+) {
+
     var title by remember { mutableIntStateOf(HomeDestination.titleRes) }
+    if (viewModel.productUiState is ProductUiState.Success) {
+        Log.i("Variable", (viewModel.productUiState as ProductUiState.Success).products.toString())
+    }
+//        Log.i("Variable", (viewModel.productUiState as ProductUiState.Success)
+//    Log.i("Variable cat", viewModel.productUiState.toString())
     FakeStoreTheme {
         Scaffold (
             topBar = {
@@ -57,6 +71,7 @@ fun HomeBody (
     titleChange: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val categoriasEjemplo = listOf( "Tecnología", "Deportes", "Música", "Cine", "Literatura" )
     val pageState = rememberPagerState( pageCount = { tabs.size } )
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     val resTitle = when (selectedTabIndex) {
@@ -65,7 +80,17 @@ fun HomeBody (
         else -> CategoryDestination.titleRes
     }
 
-    Column {
+    titleChange (resTitle)
+
+    Column (modifier = modifier) {
+        Column (
+            modifier = Modifier.weight(1f)
+        ) {
+            when (selectedTabIndex) {
+                0 -> CategoryScreen(categoriasEjemplo)
+                1 -> ProductFavoriteScreen()
+            }
+        }
         TabRow(
             selectedTabIndex = selectedTabIndex,
             modifier = Modifier
