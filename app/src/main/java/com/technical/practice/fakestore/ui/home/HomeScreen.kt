@@ -12,6 +12,7 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -20,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.technical.practice.fakestore.R
+import com.technical.practice.fakestore.data.database.product.Product
 //import com.technical.practice.fakestore.data.database.category.Category
 import com.technical.practice.fakestore.ui.AppViewModelProvider
 import com.technical.practice.fakestore.ui.FakeStoreAppBar
@@ -38,15 +40,16 @@ object HomeDestination : NavigationDestination {
 
 @Composable
 fun HomeScreen (
-    viewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.Factory)
+    viewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.Factory),
+    navigateToView: (String) -> Unit
 ) {
 
     var title by remember { mutableIntStateOf(HomeDestination.titleRes) }
-    if (viewModel.productUiState is ProductUiState.Success) {
-        Log.i("Variable", (viewModel.productUiState as ProductUiState.Success).products.toString())
+    Log.i("Variable sta", viewModel.uiState.toString())
+    if (viewModel.uiState !is HomeUiState.Success) {
+        Log.i("Variable", viewModel.categories.collectAsState().value.toString())
     }
-//        Log.i("Variable", (viewModel.productUiState as ProductUiState.Success)
-//    Log.i("Variable cat", viewModel.productUiState.toString())
+
     FakeStoreTheme {
         Scaffold (
             topBar = {
@@ -58,7 +61,9 @@ fun HomeScreen (
             }
         ) { innerPadding ->
             HomeBody(
+                listCategories = viewModel.categories.collectAsState().value,
                 titleChange = { title = it },
+                mavigateToView = navigateToView,
                 modifier = Modifier.padding(innerPadding)
             )
 
@@ -68,10 +73,12 @@ fun HomeScreen (
 
 @Composable
 fun HomeBody (
+    listCategories: List<String> = emptyList(),
+    productFavorite: List<Product> = emptyList(),
     titleChange: (Int) -> Unit,
+    mavigateToView: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val categoriasEjemplo = listOf( "Tecnología", "Deportes", "Música", "Cine", "Literatura" )
     val pageState = rememberPagerState( pageCount = { tabs.size } )
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     val resTitle = when (selectedTabIndex) {
@@ -87,8 +94,8 @@ fun HomeBody (
             modifier = Modifier.weight(1f)
         ) {
             when (selectedTabIndex) {
-                0 -> CategoryScreen(categoriasEjemplo)
-                1 -> ProductFavoriteScreen()
+                0 -> CategoryScreen(listCategories, navigateToView = mavigateToView)
+                1 -> ProductFavoriteScreen(listProducts = productFavorite)
             }
         }
         TabRow(
