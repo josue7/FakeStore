@@ -40,7 +40,10 @@ class AppDataContainer (private val context: Context): AppContainer {
 //    }
 
     override val productRepositoryLocal: ProductRepositoryLocal by lazy {
-        OfflineProductRepository(FakeStoreDB.getDatabase(context).productDao())
+        OfflineProductRepository (
+            productDao = FakeStoreDB.getDatabase(context).productDao(),
+            fakeStoreApiService = retrofitService
+        )
     }
 
 //    override val categoryRepositoryLocal: CategoryRepositoryLocal by lazy {
