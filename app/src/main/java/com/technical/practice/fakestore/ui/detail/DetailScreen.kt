@@ -33,14 +33,25 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.technical.practice.fakestore.R
 import com.technical.practice.fakestore.data.database.product.Product
+import com.technical.practice.fakestore.ui.AppViewModelProvider
+import com.technical.practice.fakestore.ui.navigation.NavigationDestination
 import com.technical.practice.fakestore.ui.product.formatPrice
+
+object DetailDestination : NavigationDestination {
+    override val route = "product_detail"
+    override val titleRes = R.string.title_screen_product
+    const val PRODUCT_ID = "productId"
+    val routeWithArgs = "$route/{$PRODUCT_ID}"
+}
 
 @Composable
 fun ProductDetailScreen(
-    product: Product,
-    onFavoriteToggle: (productId: Int) -> Unit,
+    viewModel: ProductDetailViewModel = viewModel(factory = AppViewModelProvider.Factory),
+    onBackClick: () -> Unit = {},
+    onFavoriteToggle: (productId: Int) -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     Scaffold(
