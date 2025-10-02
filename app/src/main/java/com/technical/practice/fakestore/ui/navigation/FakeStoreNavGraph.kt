@@ -8,6 +8,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.technical.practice.fakestore.ui.detail.DetailDestination
+import com.technical.practice.fakestore.ui.detail.ProductDetailScreen
 import com.technical.practice.fakestore.ui.home.HomeDestination
 import com.technical.practice.fakestore.ui.home.HomeScreen
 import com.technical.practice.fakestore.ui.product.ProductDestination
@@ -42,8 +44,22 @@ fun FakeStoreNavGraph (
             ProductScreen (
                 navigateToView = { productId ->
                     navController.navigate("${ProductDestination.route}/${productId}")
+                },
+                onBackScreen = {
+                    navController.popBackStack()
                 }
             )
+        }
+
+        composable (
+            route = DetailDestination.routeWithArgs,
+            arguments = listOf (
+                navArgument (DetailDestination.PRODUCT_ID) {
+                    type = NavType.IntType
+                }
+            )
+        ) {
+            ProductDetailScreen(onBackClick = { navController.popBackStack() })
         }
     }
 }
