@@ -51,7 +51,8 @@ object ProductDestination: NavigationDestination {
 @Composable
 fun ProductScreen (
     viewModel: ProductViewModel = viewModel(factory = AppViewModelProvider.Factory),
-    navigateToView: (Int) -> Unit = {}
+    navigateToView: (Int) -> Unit = {},
+    onBackScreen: () -> Unit = {}
 ) {
     FakeStoreTheme {
         Scaffold (
@@ -59,7 +60,8 @@ fun ProductScreen (
                 FakeStoreAppBar(
                     title = stringResource(ProductDestination.titleRes),
                     modifier = Modifier,
-                    canNavigationBack = true
+                    canNavigationBack = true,
+                    navigateUp = onBackScreen
                 )
             }
         ) { innerPadding ->
@@ -69,7 +71,7 @@ fun ProductScreen (
                 onFavoriteToggle = { productId ->
                     viewModel.onFavoriteToggle(productId)
                 },
-                onProductClick = { },
+                onProductClick = { navigateToView(it) },
                 modifier = Modifier.padding(innerPadding)
             )
         }
