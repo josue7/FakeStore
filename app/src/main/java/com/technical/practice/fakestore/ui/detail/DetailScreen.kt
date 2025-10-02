@@ -20,6 +20,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,10 +35,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.rememberAsyncImagePainter
 import com.technical.practice.fakestore.R
 import com.technical.practice.fakestore.data.database.product.Product
 import com.technical.practice.fakestore.ui.AppViewModelProvider
+import com.technical.practice.fakestore.ui.FakeStoreAppBar
 import com.technical.practice.fakestore.ui.navigation.NavigationDestination
+import com.technical.practice.fakestore.ui.product.ProductDestination
 import com.technical.practice.fakestore.ui.product.formatPrice
 
 object DetailDestination : NavigationDestination {
@@ -50,15 +54,17 @@ object DetailDestination : NavigationDestination {
 @Composable
 fun ProductDetailScreen(
     viewModel: ProductDetailViewModel = viewModel(factory = AppViewModelProvider.Factory),
-    onBackClick: () -> Unit = {},
+    onBackScreen: () -> Unit = {},
     onFavoriteToggle: (productId: Int) -> Unit = {},
     modifier: Modifier = Modifier
 ) {
+    val product = viewModel.productDetail.collectAsState().value
+
     Scaffold(
         modifier = modifier.fillMaxSize(),
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { onFavoriteToggle(product.idProduct) },
+                onClick = { viewModel.onFavoriteToggle(product.idProduct) },
                 shape = MaterialTheme.shapes.medium, // Bordes redondeados para el FAB
                 containerColor = MaterialTheme.colorScheme.tertiaryContainer, // Un color distintivo
                 contentColor = MaterialTheme.colorScheme.onTertiaryContainer
@@ -68,6 +74,14 @@ fun ProductDetailScreen(
                     contentDescription = if (product.isFavorite) "Quitar de favoritos" else "Agregar a favoritos"
                 )
             }
+        },
+        topBar = {
+            FakeStoreAppBar(
+                title = stringResource(ProductDestination.titleRes),
+                modifier = Modifier,
+                canNavigationBack = true,
+                navigateUp = onBackScreen
+            )
         }
     ) { paddingValues ->
         Column(
@@ -83,7 +97,7 @@ fun ProductDetailScreen(
                 // .height(300.dp)
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                    painter = rememberAsyncImagePainter(model = product.image),
                     contentDescription = product.title,
                     modifier = Modifier
                         .fillMaxWidth() // Ocupa todo el ancho
@@ -162,7 +176,6 @@ fun ProductDetailScreenPreview() {
             var productForPreview by remember { mutableStateOf(sampleDetailProduct) }
 
             ProductDetailScreen(
-                product = productForPreview,
                 onFavoriteToggle = {
                     productForPreview = productForPreview.copy(isFavorite = !productForPreview.isFavorite)
                 }

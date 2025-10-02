@@ -71,7 +71,7 @@ fun ProductScreen (
                 onFavoriteToggle = { productId ->
                     viewModel.onFavoriteToggle(productId)
                 },
-                onProductClick = { navigateToView(it) },
+                onProductClick = { navigateToView(it.idProduct) },
                 modifier = Modifier.padding(innerPadding)
             )
         }
@@ -82,7 +82,7 @@ fun ProductScreen (
 fun ListProducts (
     products: List<Product>,
     onFavoriteToggle: (productId: Int) -> Unit,
-    onProductClick: (productId: Int) -> Unit,
+    onProductClick: (Product) -> Unit,
     modifier: Modifier = Modifier
 ) {
     if (products.isEmpty()) {
@@ -110,7 +110,7 @@ fun ListProducts (
                 isFavorite = product.isFavorite,
                 image = product.image,
                 onFavoriteClick = { onFavoriteToggle(product.idProduct) },
-                modifier = Modifier.clickable { onProductClick(product.idProduct) }
+                modifier = Modifier.clickable { onProductClick(product) }
             )
         }
     }
@@ -128,8 +128,7 @@ fun CardProduct (
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp)
-            .clickable { /* TODO */ },
+            .padding(horizontal = 16.dp, vertical = 8.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
         Column {

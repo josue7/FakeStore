@@ -1,6 +1,5 @@
 package com.technical.practice.fakestore.ui.navigation
 
-import android.R.attr.type
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -43,7 +42,7 @@ fun FakeStoreNavGraph (
         ) {
             ProductScreen (
                 navigateToView = { productId ->
-                    navController.navigate("${ProductDestination.route}/${productId}")
+                    navController.navigate("${DetailDestination.route}/${productId}")
                 },
                 onBackScreen = {
                     navController.popBackStack()
@@ -59,7 +58,7 @@ fun FakeStoreNavGraph (
                 }
             )
         ) {
-            ProductDetailScreen(onBackClick = { navController.popBackStack() })
+            ProductDetailScreen(onBackScreen = { navController.popBackStack() })
         }
     }
 }
