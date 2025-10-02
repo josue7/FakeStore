@@ -21,9 +21,11 @@ sealed interface HomeUiState {
 }
 
 class HomeViewModel (
-    private val productRepositoryNet: ProductRepositoryNet,
     private val productRepositoryLocal: ProductRepositoryLocal
 ): ViewModel () {
+
+    private val _favoriteProducts = MutableStateFlow<List<Product>>(emptyList())
+    val favoriteProducts: StateFlow<List<Product>> = _favoriteProducts
 
     private val _uiState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
     val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
@@ -35,6 +37,7 @@ class HomeViewModel (
 
     init {
         loadInitialData()
+        loadProductsFavorite()
     }
 
     private fun loadInitialData() {
@@ -50,6 +53,20 @@ class HomeViewModel (
             }
         }
 
+    }
+
+    private fun loadProductsFavorite() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                productRepositoryLocal.getFavoriteProducts().collect { products ->
+                    withContext(Dispatchers.Main) {
+                        _favoriteProducts.value = products
+                    }
+                }
+            }catch (e: Exception) {
+                Log.e("Variable error", "Error al obtener productos favoritos", e)
+            }
+        }
     }
 
     private fun observeProducts() {
