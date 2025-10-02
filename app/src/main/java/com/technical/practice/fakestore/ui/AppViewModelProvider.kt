@@ -9,12 +9,12 @@ import com.technical.practice.fakestore.FakeStoreApplication
 import com.technical.practice.fakestore.data.apiservice.FakeStoreApiService
 import com.technical.practice.fakestore.ui.home.HomeViewModel
 import com.technical.practice.fakestore.ui.product.ProductViewModel
+import com.technical.practice.fakestore.ui.product.ProductsFavoriteViewModel
 
 object AppViewModelProvider {
     val Factory = viewModelFactory {
         initializer {
             HomeViewModel(
-                productRepositoryNet = this.fakeStoreApplication().container.productRepositoryNet,
                 productRepositoryLocal = this.fakeStoreApplication().container.productRepositoryLocal
             )
         }
@@ -23,6 +23,12 @@ object AppViewModelProvider {
             ProductViewModel(
                 productRepositoryLocal = this.fakeStoreApplication().container.productRepositoryLocal,
                 savedStateHandle = createSavedStateHandle()
+            )
+        }
+
+        initializer {
+            ProductsFavoriteViewModel (
+                productRepositoryLocal = this.fakeStoreApplication().container.productRepositoryLocal
             )
         }
     }
