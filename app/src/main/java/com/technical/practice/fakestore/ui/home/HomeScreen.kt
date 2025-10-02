@@ -22,7 +22,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.technical.practice.fakestore.R
 import com.technical.practice.fakestore.data.database.product.Product
-//import com.technical.practice.fakestore.data.database.category.Category
 import com.technical.practice.fakestore.ui.AppViewModelProvider
 import com.technical.practice.fakestore.ui.FakeStoreAppBar
 import com.technical.practice.fakestore.ui.category.CategoryDestination
@@ -45,9 +44,10 @@ fun HomeScreen (
 ) {
 
     var title by remember { mutableIntStateOf(HomeDestination.titleRes) }
+
     Log.i("Variable sta", viewModel.uiState.toString())
-    if (viewModel.uiState !is HomeUiState.Success) {
-        Log.i("Variable", viewModel.categories.collectAsState().value.toString())
+    if (viewModel.uiState is HomeUiState.Success) {
+
     }
 
     FakeStoreTheme {
@@ -62,6 +62,7 @@ fun HomeScreen (
         ) { innerPadding ->
             HomeBody(
                 listCategories = viewModel.categories.collectAsState().value,
+                productFavorite = viewModel.favoriteProducts.collectAsState().value,
                 titleChange = { title = it },
                 mavigateToView = navigateToView,
                 modifier = Modifier.padding(innerPadding)
