@@ -6,7 +6,7 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.technical.practice.fakestore.FakeStoreApplication
-import com.technical.practice.fakestore.data.apiservice.FakeStoreApiService
+import com.technical.practice.fakestore.ui.detail.ProductDetailViewModel
 import com.technical.practice.fakestore.ui.home.HomeViewModel
 import com.technical.practice.fakestore.ui.product.ProductViewModel
 import com.technical.practice.fakestore.ui.product.ProductsFavoriteViewModel
@@ -29,6 +29,13 @@ object AppViewModelProvider {
         initializer {
             ProductsFavoriteViewModel (
                 productRepositoryLocal = this.fakeStoreApplication().container.productRepositoryLocal
+            )
+        }
+
+        initializer {
+            ProductDetailViewModel(
+                productRepositoryLocal = this.fakeStoreApplication().container.productRepositoryLocal,
+                savedStateHandle = createSavedStateHandle()
             )
         }
     }
