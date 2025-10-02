@@ -1,5 +1,6 @@
 package com.technical.practice.fakestore.ui.category
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,22 +19,21 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.technical.practice.fakestore.R
 //import com.technical.practice.fakestore.data.database.category.Category
-import com.technical.practice.fakestore.data.database.product.Product
 import com.technical.practice.fakestore.ui.navigation.NavigationDestination
 
 object CategoryDestination: NavigationDestination {
-    override val route = "category"
+    override val route = "categories"
     override val titleRes = R.string.title_screen_category
 }
 
 @Composable
 fun CategoryScreen (
     categories: List<String>,
-    navigateToView: (Int) -> Unit = {}
+    navigateToView: (String) -> Unit = {}
 ) {
     ListCategories(
         categories = categories,
-        onTransactionClick = { navigateToView(it.toInt()) },
+        onTransactionClick = { navigateToView(it) },
         modifier = Modifier.fillMaxSize()
     )
 }
@@ -48,8 +48,11 @@ fun ListCategories (
         columns = GridCells.Fixed(2),
         modifier = modifier
     ) {
-        items(categories) {
-            CardCategory(it, modifier = Modifier.padding(4.dp))
+        items(categories, key = { it }) {
+            CardCategory(
+                category = it,
+                modifier = Modifier.padding(4.dp).clickable{ onTransactionClick(it) }
+            )
         }
     }
 }

@@ -9,9 +9,12 @@ interface ProductRepositoryNet {
 }
 
 interface ProductRepositoryLocal {
+    suspend fun getProductsSync(): List<Product>
+    fun getAllProducts(): Flow< List<Product> >
     fun getProductsByCategory(categoryId: String): Flow < List<Product> >
     fun getProductById(productId: Int): Flow < Product >
     fun getFavoriteProducts(): Flow < List<Product> >
-    suspend fun updateFavoriteStatus(product: Product)
-    suspend fun insert(product: Product)
+    suspend fun updateFavoriteStatus(product: Int)
+    suspend fun insertProduct(product: List<Product>)
+    suspend fun refreshProducts()
 }

@@ -13,44 +13,11 @@ object ProductFavoriteDestination: NavigationDestination {
 
 @Composable
 fun ProductFavoriteScreen (
+    listProducts: List<Product> = emptyList(),
     navigateToView: (Int) -> Unit = {}
 ) {
-    val productosEjemplo = listOf(
-        Product(
-            idProduct = 1,
-            title = "Smartphone XYZ",
-            price = 299.99,
-            description = "Smartphone con cámara triple y pantalla AMOLED",
-            category = "ypypyoy",
-            image = "https://example.com/images/smartphone_xyz.png"
-        ),
-        Product(
-            idProduct = 2,
-            title = "Audífonos Bluetooth",
-            price = 59.99,
-            description = "Auriculares inalámbricos con cancelación de ruido",
-            category = "tuututu",
-            image = "https://example.com/images/auriculares_bt.png"
-        ),
-        Product(
-            idProduct = 3,
-            title = "Libro de Kotlin",
-            price = 24.99,
-            description = "Guía práctica para programar en Kotlin",
-            category = "gfgfgh",
-            image = "https://example.com/images/libro_kotlin.png"
-        ),
-        Product(
-            idProduct = 4,
-            title = "Cámara deportiva",
-            price = 149.99,
-            description = "Cámara resistente al agua con grabación 4K",
-            category = "tryry",
-            image = "https://example.com/images/camara_deportiva.png"
-        )
-    )
     ListProducts (
-        products = productosEjemplo,
+        products = listProducts,
         onFavoriteToggle ={},
         onProductClick = {}
     )
